@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Proyecto1</string>
+    <string name="str_name">Name</string>
+    <string name="str_chupamela">Chupamela</string>
+    <string name="str_right_click">Presionaste el botón derecho</string>
+    <string name="str_left_click">Presionaste el botón izquierdo</string>
+    <string name="str_bottom_click">Presionaste el botón de abajo</string>
+</resources>
