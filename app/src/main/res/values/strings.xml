@@ -5,4 +5,7 @@
     <string name="str_right_click">Presionaste el botón derecho</string>
     <string name="str_left_click">Presionaste el botón izquierdo</string>
     <string name="str_bottom_click">Presionaste el botón de abajo</string>
+    <string name="str_photo1">Escudo 1</string>
+    <string name="str_photo2">Escudo 2</string>
+    <string name="str_photo3">Escudo 3</string>
 </resources>

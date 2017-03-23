@@ -1,5 +1,6 @@
 package com.salidas.proyecto1.controller.main.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -38,18 +39,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent(this, ShowImageActivity.class);
+
         switch (view.getId()) {
             case R.id.btnBottom:
                 Toast.makeText(this, getString(R.string.str_bottom_click), Toast.LENGTH_SHORT).show();
+                intent.putExtra("urlPhoto", getString(R.string.str_photo1));
                 break;
             case R.id.btnLeft:
                 Toast.makeText(this, getString(R.string.str_left_click), Toast.LENGTH_SHORT).show();
+                intent.putExtra("urlPhoto", getString(R.string.str_photo2));
                 break;
             case R.id.btnRight:
                 Toast.makeText(this, getString(R.string.str_right_click), Toast.LENGTH_SHORT).show();
+                intent.putExtra("urlPhoto", getString(R.string.str_photo3));
                 break;
             default:
                 break;
         }
+        startActivity(intent);
     }
 }
