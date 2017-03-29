@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.salidas.proyecto1.R;
 
 /**
@@ -30,7 +31,11 @@ public class ShowImageActivity extends AppCompatActivity {
         if (intent.getExtras() != null && intent.getExtras().getString("urlPhoto") != null) {
             String urlPhoto = getIntent().getExtras().getString("urlPhoto");
             if (urlPhoto.equals(getString(R.string.str_photo1))) {
-                ivPhoto.setImageDrawable(getResources().getDrawable(R.drawable.escudo1));
+                //ivPhoto.setImageDrawable(getResources().getDrawable(R.drawable.escudo1));
+                Glide.with(this)
+                        .load("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Coat_of_arms_of_Colombia.svg/250px-Coat_of_arms_of_Colombia.svg.png")
+                        .into(ivPhoto);
+
                 tvPhotoName.setText(getString(R.string.str_photo1));
             } else if (urlPhoto.equals(getString(R.string.str_photo2))) {
                 ivPhoto.setImageDrawable(getResources().getDrawable(R.drawable.escudo2));

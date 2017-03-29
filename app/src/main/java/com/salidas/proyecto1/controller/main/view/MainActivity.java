@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(this, ShowImageActivity.class);
+        Intent intent = new Intent(this, CountryListActivity.class);
 
         switch (view.getId()) {
             case R.id.btnBottom:
