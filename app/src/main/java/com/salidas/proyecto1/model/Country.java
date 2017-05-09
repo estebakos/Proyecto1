@@ -1,5 +1,7 @@
 package com.salidas.proyecto1.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
@@ -7,7 +9,6 @@ import java.util.ArrayList;
  */
 
 public class Country {
-
     private String code;
     private String country;
     private String shield;

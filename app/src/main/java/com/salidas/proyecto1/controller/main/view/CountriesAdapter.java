@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,12 +29,14 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.View
         // each data item is just a string in this case
         public ImageView ivShield;
         public TextView tvCountryName, tvCountryCode;
+        public LinearLayout lyCountry;
 
         public ViewHolder(View v) {
             super(v);
             tvCountryCode = (TextView) v.findViewById(R.id.tvCountryCode);
             tvCountryName = (TextView) v.findViewById(R.id.tvCountryName);
             ivShield = (ImageView) v.findViewById(R.id.ivShield);
+            lyCountry = (LinearLayout) v.findViewById(R.id.lyCountry);
         }
     }
 
@@ -61,6 +64,13 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.View
         holder.tvCountryName.setText(country.getCountry());
         holder.tvCountryCode.setText(country.getCode());
         Glide.with(context).load(country.getShield()).into(holder.ivShield);
+
+        holder.lyCountry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

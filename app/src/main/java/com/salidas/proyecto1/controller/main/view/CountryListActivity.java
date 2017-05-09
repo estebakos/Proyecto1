@@ -6,65 +6,58 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.salidas.proyecto1.R;
-import com.salidas.proyecto1.controller.main.controller.AppController;
+import com.salidas.proyecto1.app.AppContext;
+import com.salidas.proyecto1.controller.main.controller.CountryController;
 import com.salidas.proyecto1.model.Country;
 
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by esteban on 27/03/17.
  */
 
-public class CountryListActivity extends AppCompatActivity{
+public class CountryListActivity extends AppCompatActivity implements ICountryActivity {
 
     private RecyclerView rvCountries;
+    private CountryController countryController;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_list);
+        AppContext.setGlobalContext(this);
+        countryController = new CountryController(this);
 
         rvCountries = (RecyclerView) findViewById(R.id.rvCountryList);
         rvCountries.setLayoutManager(new LinearLayoutManager(this));
         rvCountries.setHasFixedSize(true);
+    }
 
-        String tag_json_arry = "json_array_req";
-        String url = "http://private-f1dbf3-androidclass.apiary-mock.com/teams";
+    @Override
+    public void onCountries(List<Country> countries) {
+        CountriesAdapter countriesAdapter = new CountriesAdapter(countries, this);
+        rvCountries.setAdapter(countriesAdapter);
+    }
 
-        final ProgressDialog pDialog = new ProgressDialog(this);
+    @Override
+    public void onError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    }
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+    private void hideDialog() {
+        if (pDialog != null && !pDialog.isShowing()) {
+            pDialog.cancel();
+        }
+    }
 
-        JsonArrayRequest req = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        List<Country> countries = new Gson().fromJson(response.toString(),
-                                new TypeToken<ArrayList<Country>>() {
-                                }.getType());
-                        CountriesAdapter countriesAdapter = new CountriesAdapter(countries, CountryListActivity.this);
-                        rvCountries.setAdapter(countriesAdapter);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-
-        queue.add(req);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //pDialog = new ProgressDialog(this);
+        countryController.getCountries();
     }
 }
