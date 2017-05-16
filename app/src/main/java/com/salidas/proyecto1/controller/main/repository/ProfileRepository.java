@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.salidas.proyecto1.app.AppContext;
 import com.salidas.proyecto1.base.BaseRepository;
 import com.salidas.proyecto1.model.CountryResponse;
+import com.salidas.proyecto1.model.Profile;
 import com.salidas.proyecto1.util.VolleyQueueManager;
 
 import org.json.JSONObject;
@@ -17,9 +18,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountryRepository extends BaseRepository {
+public class ProfileRepository extends BaseRepository {
 
-    public static void callCountryService(final ICountryResponseHandler handler) {
+    public static void callProfileService(final IProfileResponseHandler handler) {
 
         String url = "http://private-f1dbf3-androidclass.apiary-mock.com/teams";
 
@@ -28,10 +29,10 @@ public class CountryRepository extends BaseRepository {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            CountryResponse countryResponse = new Gson().fromJson(response.toString(), CountryResponse.class);
-                            handler.onAPIResponse(countryResponse.getCountries());
+                            Profile profileResponse = new Gson().fromJson(response.toString(), Profile.class);
+                            handler.onProfile(profileResponse);
                         } catch (Exception e) {
-                            handler.onError("Ay mk, se embaló");
+                            handler.onError();
                         }
 
                     }
@@ -39,7 +40,7 @@ public class CountryRepository extends BaseRepository {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        handler.onError("Qué cagada guevón");
+                        handler.onError();
                     }
                 }) {
 
